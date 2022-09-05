@@ -20,14 +20,14 @@ public class UserController {
         this.userService = userService;
     }
 
-//    @GetMapping
-//    public ResponseEntity getUsers(){
-//        try{
-//            return ResponseEntity.ok(userService.findAll());
-//        } catch (Exception e){
-//            return (ResponseEntity) ResponseEntity.badRequest().body("Fucking Bullshit");
-//        }
-//    }
+    @GetMapping
+    public ResponseEntity getUsers(){
+        try{
+            return ResponseEntity.ok(userService.findAll());
+        } catch (Exception e){
+            return (ResponseEntity) ResponseEntity.badRequest().body("Fucking Bullshit");
+        }
+    }
 
     @PostMapping
     public ResponseEntity createUser(@RequestBody UserEntity user) {
@@ -41,16 +41,16 @@ public class UserController {
         }
     }
 
-//    @PutMapping
-//    public ResponseEntity updateUser(@RequestBody UserEntity user, @RequestParam Long user_id) {
-//        try {
-//            return ResponseEntity.ok(userService.update(user, user_id));
-//        } catch (UserNotFoundException e) {
-//            return ResponseEntity.badRequest().body(e.getMessage());
-//        } catch (Exception e) {
-//            return ResponseEntity.badRequest().body(e.getMessage());
-//        }
-//    }
+    @PutMapping("/{id}")
+    public ResponseEntity updateUser(@RequestBody UserEntity user, @PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(userService.update(user, id));
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteUser(@PathVariable("id") Long id) {
@@ -62,8 +62,8 @@ public class UserController {
     }
 
 
-    @GetMapping
-    public ResponseEntity getOneUser(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity getOneUser(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(userService.getOne(id));
         } catch (UserNotFoundException e) {

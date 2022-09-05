@@ -6,11 +6,11 @@ import com.todo.rest.exception.UserNotFoundException;
 import com.todo.rest.model.User;
 import com.todo.rest.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -28,8 +28,9 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public List<UserEntity> findAll() {
-        return userRepository.findAll();
+    public List<User> findAll() {
+        List<User> userEntities = userRepository.findAll().stream().map(User::toModel).collect(Collectors.toList());
+        return userEntities;
     }
 
     public User getOne(Long user_id) throws UserNotFoundException {
@@ -40,6 +41,8 @@ public class UserService {
     }
 
     public UserEntity update(UserEntity user, Long user_id) throws UserNotFoundException {
+        UserEntity entity = user;
+        user.setId(user_id);
         if (!userRepository.findById(user_id).isPresent())
             throw new UserNotFoundException("USER NOT FOUND!");
         return userRepository.save(user);
