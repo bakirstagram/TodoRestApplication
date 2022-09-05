@@ -1,0 +1,13 @@
+-- create table hibernate_sequence(
+--     next_val bigint
+-- ) engine=MyIsam;
+--
+-- insert into hibernate_sequence values (1);
+-- insert into hibernate_sequence values (1);
+--
+-- CREATE TABLE user (
+--     id BIGINT NOT NULL AUTO_INCREMENT,
+--     password varchar(64) not null ,
+--     name varchar(64) not null unique,
+--     PRIMARY KEY(id)
+-- )engine=MyISAM;
